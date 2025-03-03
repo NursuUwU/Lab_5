@@ -1,0 +1,21 @@
+[
+  {
+    "incrementalId": 2,
+    "id": 1,
+    "name": "1",
+    "coordinates": {
+      "x": 0.0,
+      "y": 0
+    },
+    "creationDate": "Mar 1, 2025, 5:13:36 PM",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 4,
+    "weaponType": "PISTOL",
+    "mood": "GLOOM",
+    "car": {
+      "name": "caw",
+      "cool": false
+    }
+  }
+]
