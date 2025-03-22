@@ -1,9 +1,9 @@
-import commands.ints.Command;
-import commands.realisations.*;
+import commands.Command;
+import commands.impl.*;
 import data.HumanBeing;
-import managers.realisations.CollectionManager;
-import managers.realisations.CommandManager;
-import managers.realisations.FileManager;
+import managers.impl.CollectionManager;
+import managers.impl.CommandManager;
+import managers.impl.FileManager;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -52,7 +52,7 @@ public class Main {
                 new AddIfMinCommand(collectionManager, collectionManager));
         commandManager.register("remove_greater",
                 new RemoveGreaterCommand(collectionManager));
-        commandManager.register("remove_by_impact_speed",
+        commandManager.register("remove_any_by_impact_speed",
                 new RemoveByImpactSpeedCommand(collectionManager));
         commandManager.register("max_by_has_toothpick",
                 new MaxByHasToothpickCommand(collectionManager));
@@ -60,7 +60,7 @@ public class Main {
                 new PrintFieldAscendingByImpactSpeedCommand(collectionManager));
         System.out.println("Добро пожаловать -w- ! " +
                 "Введите команду (для просмотра досутпных комнад введите 'help'");
-
+//TODO: округление, name не должна быть пустой
         while (true) {
             System.out.print("> ");
             String input = scanner.nextLine().trim();

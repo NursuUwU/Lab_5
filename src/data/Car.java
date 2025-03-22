@@ -9,6 +9,9 @@ public class Car {
     }
     @Override
     public String toString() {
-        return "Название машины: " + name + " Крутая? : " + cool;
+        return "{" +
+                "\n Название машины: " + name +
+                "\n Крутая? : " + cool +
+                "\n }" ;
     }
 }
