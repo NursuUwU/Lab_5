@@ -63,7 +63,7 @@ public class Main {
                 new PrintFieldAscendingByImpactSpeedCommand(collectionManager));
         System.out.println("Добро пожаловать -w- ! " +
                 "Введите команду (для просмотра досутпных комнад введите 'help'");
-//TODO: округление, name не должна быть пустой
+
         while (true) {
             System.out.print("> ");
             String input = scanner.nextLine().trim();

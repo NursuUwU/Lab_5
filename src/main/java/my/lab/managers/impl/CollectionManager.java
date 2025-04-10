@@ -8,13 +8,14 @@ import my.lab.managers.Creatable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
-
+//TODO: перенести логику проверки в сеттеры геттеры
 public class CollectionManager implements Removeable, Creatable, GettableCollection {
     private LinkedHashSet<HumanBeing> collection;
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     public CollectionManager(LinkedHashSet<HumanBeing> collection) {
         this.collection = collection;
@@ -77,37 +78,67 @@ public class CollectionManager implements Removeable, Creatable, GettableCollect
     /**
      * Этот метод создаеёт элемент коллекции {@code LinkedHashSet<HumanBeing>} collection
      * с заданными значениями полей
-     * @param args Поля стандартного типа данных создаваемого элемента
      */
     @Override
-    public HumanBeing createElement(String[] args) {
-        String name = null;
-        try {
-            String nameInput = args[1];
+    public HumanBeing createElement() {
+        long id = 1;
+
+        String name;
+        while(true) {
+            System.out.println("Введите имя: ");
+            String nameInput = scanner.nextLine();
             if (!nameInput.isEmpty()) {
                 name = nameInput;
+                break;
+            } else {
+                System.out.println("Ой, кажется вы не ввели имя TwT");
             }
-        } catch (IllegalArgumentException e) {
-            System.out.println("Ой, имя не может быть пустым *~x");
-            return null;
         }
-        Boolean realHero = Boolean.parseBoolean(args[2]);
-        boolean hasToothpick = Boolean.parseBoolean(args[3]);
-        long impactSpeed = 0;
-        try {
-            String impactSpeedInput = args[4];
-            if (!impactSpeedInput.isEmpty()) {
-                impactSpeed = Long.parseLong(args[4]);
+
+        Boolean realHero;
+        while (true) {
+            System.out.println("Введите значение настоящего героя (true/false): ");
+            String realHeroInput = scanner.nextLine().toLowerCase();
+            if (!realHeroInput.isEmpty() && (realHeroInput.equals("true") || realHeroInput.equals("false"))) {
+                realHero = Boolean.parseBoolean(realHeroInput);
+                break;
+            } else {
+                System.out.println("Ой, кажется вы не ввели нужное значение OwO");
             }
-        } catch (NumberFormatException e) {
-            System.out.println("Ой, кажется вы ввели не число O~O");
-            return null;
+        }
+
+        boolean hasToothpick;
+        while(true) {
+            System.out.println("Введите наличие зубочистки (true/false): ");
+            String hasToothpickInput = scanner.nextLine().toLowerCase();
+            if (!hasToothpickInput.isEmpty() && (hasToothpickInput.equals("true") || hasToothpickInput.equals("false"))) {
+               hasToothpick = Boolean.parseBoolean(hasToothpickInput);
+               break;
+            } else {
+                System.out.println("Ой, кажется вы не ввели нужное значение OwO");
+            }
+        }
+
+        long impactSpeed;
+        while(true) {
+            System.out.println("Введите скорость удара: ");
+            String impactSpeedInput = scanner.nextLine();
+            if (!impactSpeedInput.isEmpty()) {
+                try {
+                    impactSpeed = Long.parseLong(impactSpeedInput);
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Ой, кажется вы ввели не число O~O");
+                }
+            } else {
+                System.out.println("Ой, кажется вы не ввели скорость удара TwT");
+            }
         }
 
 
         double x;
         while (true) {
-            System.out.println("Введите x координату (больше -12) : ");
+            System.out.println("Введите x координату (больше -12): ");
             String xInput = scanner.nextLine();
             try {
                 BigDecimal temp = new BigDecimal(xInput);
@@ -122,9 +153,10 @@ public class CollectionManager implements Removeable, Creatable, GettableCollect
                 System.out.println("Ой, кажется вы ввели не число O~O");
             }
         }
-        Long y;
+
+        long y;
         while (true) {
-            System.out.println("Введите y координату (больше -255) : ");
+            System.out.println("Введите y координату (больше -255): ");
             String yInput = scanner.nextLine();
             try {
                 BigDecimal temp = new BigDecimal(yInput);
@@ -139,29 +171,30 @@ public class CollectionManager implements Removeable, Creatable, GettableCollect
                 System.out.println("Ой, кажется вы ввели не число O~O");
             }
         }
+
         Coordinates coordinates = new Coordinates(x, y);
 
-        WeaponType weaponType = null;
+        String weaponType = null;
         while (true) {
             System.out.println("Введите оружие (не обязательно). Доступные виды: ");
             printEnumValues(WeaponType.class);
             String weaponInput = scanner.nextLine();
             if (weaponInput.isEmpty()) break;
             try {
-                weaponType = WeaponType.valueOf(weaponInput.toUpperCase());
+                weaponType = WeaponType.valueOf(weaponInput.toUpperCase()).toString();
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println("Ой, такого оружия нет o~x");
             }
         }
-        Mood mood = null;
+        String mood = null;
         while (true) {
             System.out.println("Введите настроение (не обязательно). Доступные настроения: ");
             printEnumValues(Mood.class);
             String moodInput = scanner.nextLine();
             if (moodInput.isEmpty()) break;
             try {
-                mood = Mood.valueOf(moodInput.toUpperCase());
+                mood = Mood.valueOf(moodInput.toUpperCase()).toString();
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println("Ой, такого настроения нет O~x");
@@ -179,23 +212,24 @@ public class CollectionManager implements Removeable, Creatable, GettableCollect
                 System.out.println("Ой, кажется вы не ввели название машины x~U");
             }
         }
-        Boolean cool;
+        boolean cool;
         while (true) {
-            System.out.println("Введите параметр машины cool: ");
+            System.out.println("Введите крутость машины (true/false): ");
             try {
                 String coolInput = scanner.nextLine();
-                if (!coolInput.isEmpty()) {
+                if (!coolInput.isEmpty() && (coolInput.equals("true") || coolInput.equals("false"))) {
                     cool = Boolean.parseBoolean(coolInput);
                     break;
                 } else {
                     System.out.println("Ой, кажется вы не ввели значение крутости TwT");
                 }
             } catch (IllegalArgumentException e) {
-                System.out.println("Ой, тут может быть только true/false T~T");
+                System.out.println("Ой, кажется вы ввели не то значение T~T");
             }
         }
 
         Car car = new Car(carName, cool);
-        return new HumanBeing(name, realHero, hasToothpick, impactSpeed, coordinates, weaponType, mood, car);
+
+        return new HumanBeing(id, new Date().toString(), name, realHero, hasToothpick, impactSpeed, coordinates, weaponType, mood, car);
     }
 }

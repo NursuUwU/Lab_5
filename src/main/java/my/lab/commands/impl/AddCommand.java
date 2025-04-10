@@ -1,11 +1,11 @@
 package my.lab.commands.impl;
 
-import my.lab.commands.ParameterizedCommand;
+import my.lab.commands.ParameterlessCommand;
 import my.lab.data.HumanBeing;
 import my.lab.managers.Creatable;
 import my.lab.managers.GettableCollection;
 
-public class AddCommand implements ParameterizedCommand {
+public class AddCommand implements ParameterlessCommand {
     private final Creatable creatable;
     private final GettableCollection gettableCollection;
 
@@ -22,19 +22,11 @@ public class AddCommand implements ParameterizedCommand {
     /**
      * Этот метод добавляет элемент, созданный методом createElement(String[] args)
      * в коллекцию {@code LinkedHashSet<HumanBeing>} collection
-     *
-     * @param args Аргументы, передаваемые в метод createElement(String[] args)
      */
     @Override
-    public void execute(String[] args) {
-        if (args.length != 5) {
-            System.out.println("Кажется вы ввели не 4 аргумента TwT");
-            return;
-        }
-        HumanBeing human = creatable.createElement(args);
+    public void execute() {
+        HumanBeing human = creatable.createElement();
         gettableCollection.getCollection().add(human);
-
-
     }
 
 }

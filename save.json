@@ -1,18 +1,20 @@
 [
   {
-    "id": 2,
-    "name": "1",
+    "id": 1,
+    "name": null,
     "coordinates": {
-      "x": 1.0,
-      "y": 1
+      "x": null,
+      "y": a
     },
-    "creationDate": "Mar 17, 2025, 10:13:05 AM",
-    "realHero": false,
-    "hasToothpick": false,
+    "creationDate": "Mar 17, 2025, 10:105 AM",
+    "realHero": null,
+    "hasToothpick": null,
+    "weaponType": asfdewfr,
+    "mood": asdwrwe,
     "impactSpeed": 4,
     "car": {
-      "name": "12",
-      "cool": false
+      "name": "",
+      "cool": null
     }
   }
 ]
