@@ -16,9 +16,11 @@ import java.util.Scanner;
 
 public class FileManager implements Saveable, ScriptExecutable {
     private final String filePath = System.getenv("FILE_PATH");
-    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private GettableCollection gettableCollection;
-    private CommandManager commandManager;
+    private final Gson gson = new GsonBuilder()
+            .registerTypeAdapter(HumanBeing.class, new HumanBeingAdapter())
+            .setPrettyPrinting().create();
+    private final GettableCollection gettableCollection;
+    private final CommandManager commandManager;
 
     public FileManager(GettableCollection gettableCollection, CommandManager commandManager) {
         this.gettableCollection = gettableCollection;
@@ -48,6 +50,7 @@ public class FileManager implements Saveable, ScriptExecutable {
             if (collection == null) {
                 collection = new LinkedHashSet<>();
             }
+
             System.out.println("Коллекция успешно загружена! ~^~");
         } catch (IOException e) {
             System.err.println("Ой, не удалось прочитать файл O~x");

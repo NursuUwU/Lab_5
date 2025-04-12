@@ -2,6 +2,7 @@ package my.lab.commands.impl;
 
 import my.lab.commands.ParameterizedCommand;
 import my.lab.data.HumanBeing;
+import my.lab.exceptions.NoSuchIdException;
 import my.lab.managers.Creatable;
 import my.lab.managers.GettableCollection;
 import my.lab.managers.Removeable;
@@ -31,17 +32,19 @@ public class UpdateIdCommand implements ParameterizedCommand {
      */
     @Override
     public void execute(String[] args) {
-        if (args.length != 6) {
-            System.out.println("Пожалуйста, введите все аргументы O~O");
+        if (args.length != 2) {
+            System.out.println("Пожалуйста, введите id O~O");
             return;
         }
         try {
             long id = Long.parseLong(args[1]);
             removeable.remove(args);
-            HumanBeing newElement = creatable.createElement(args);
+            HumanBeing newElement = creatable.createElement();
             gettableCollection.getCollection().add(newElement);
         } catch (NumberFormatException e) {
             System.out.println("Ой, id должен быть числом x~o");
+        } catch (NoSuchIdException e) {
+            System.out.println(e.getMessage());
         }
 
     }

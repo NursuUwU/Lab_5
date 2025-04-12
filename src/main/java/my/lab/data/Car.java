@@ -5,8 +5,34 @@ public class Car {
     private Boolean cool; //Поле не может быть null
 
     public Car(String name, Boolean cool) {
-        this.name = name;
-        this.cool = cool;
+        setName(name);
+        setCool(cool);
+    }
+
+    public void setName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            this.name = "Jons car";
+            System.out.println("Ой, в файлике было некорректное название машины X~o");
+        } else {
+            this.name = name;
+        }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setCool(Boolean cool) {
+        if (cool == null) {
+            this.cool = false;
+            System.out.println("Ой, в файлике было некорректное значение крутости машины X~o");
+        } else {
+            this.cool = cool;
+        }
+    }
+
+    public Boolean getCool() {
+        return cool;
     }
 
     @Override
